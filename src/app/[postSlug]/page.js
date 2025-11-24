@@ -7,8 +7,21 @@ import BlogHero from "@/components/BlogHero";
 
 import styles from "./postSlug.module.css";
 
+export async function generateMetadata({ params }) {
+  const { postSlug } = await params;
+  const {
+    frontmatter: { title, abstract },
+  } = await loadBlogPost(postSlug);
+
+  return {
+    title: title,
+    description: abstract,
+  };
+}
+
 async function BlogPost({ params }) {
   const { postSlug } = await params;
+
   const {
     content,
     frontmatter: { title, publishedOn },
