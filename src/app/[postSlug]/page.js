@@ -1,11 +1,9 @@
 import React from "react";
-import dynamic from "next/dynamic";
 
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 import { loadBlogPost } from "@/helpers/file-helpers";
 import BlogHero from "@/components/BlogHero";
-import CodeSnippet from "@/components/CodeSnippet";
 
 import COMPONENT_MAP from "@/helpers/mdx-components";
 import styles from "./postSlug.module.css";
