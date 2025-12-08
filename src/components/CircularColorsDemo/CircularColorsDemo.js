@@ -35,11 +35,7 @@ function CircularColorsDemo() {
     };
   }, [playing]);
 
-  const [selectedColor, setSelectedColor] = React.useState(COLORS[0]);
-
-  React.useEffect(() => {
-    setSelectedColor(COLORS[timeElapsed % 3]);
-  }, [timeElapsed]);
+  const selectedColor = COLORS[timeElapsed % COLORS.length];
 
   const resetTimer = () => {
     setTimeElapsed(0);
@@ -88,7 +84,12 @@ function CircularColorsDemo() {
               <VisuallyHidden>Pause</VisuallyHidden>
             </button>
           ) : (
-            <button onClick={() => setPlaying(true)}>
+            <button
+              onClick={() => {
+                setPlaying(true);
+                setTimeElapsed(timeElapsed + 1);
+              }}
+            >
               <Play />
               <VisuallyHidden>Play</VisuallyHidden>
             </button>
