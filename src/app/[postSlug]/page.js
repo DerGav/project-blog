@@ -7,14 +7,8 @@ import { loadBlogPost } from "@/helpers/file-helpers";
 import BlogHero from "@/components/BlogHero";
 import CodeSnippet from "@/components/CodeSnippet";
 
+import COMPONENT_MAP from "@/helpers/mdx-components";
 import styles from "./postSlug.module.css";
-
-const DivisionGroupsDemo = dynamic(() =>
-  import("@/components/DivisionGroupsDemo")
-);
-const CircularColorsDemo = dynamic(() =>
-  import("@/components/CircularColorsDemo")
-);
 
 export async function generateMetadata({ params }) {
   const { postSlug } = await params;
@@ -40,14 +34,7 @@ async function BlogPost({ params }) {
     <article className={styles.wrapper}>
       <BlogHero title={title} publishedOn={publishedOn} />
       <div className={styles.page}>
-        <MDXRemote
-          source={content}
-          components={{
-            pre: CodeSnippet,
-            DivisionGroupsDemo,
-            CircularColorsDemo,
-          }}
-        />
+        <MDXRemote source={content} components={COMPONENT_MAP} />
       </div>
     </article>
   );
