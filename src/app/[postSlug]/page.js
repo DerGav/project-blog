@@ -1,4 +1,5 @@
 import React from "react";
+import { notFound } from "next/navigation";
 
 import { MDXRemote } from "next-mdx-remote/rsc";
 
@@ -10,9 +11,13 @@ import styles from "./postSlug.module.css";
 
 export async function generateMetadata({ params }) {
   const { postSlug } = await params;
+  const blogPost = await loadBlogPost(postSlug);
+
+  if (!blogPost) return;
+
   const {
     frontmatter: { title, abstract },
-  } = await loadBlogPost(postSlug);
+  } = blogPost;
 
   return {
     title: title,
@@ -23,10 +28,16 @@ export async function generateMetadata({ params }) {
 async function BlogPost({ params }) {
   const { postSlug } = await params;
 
+  const blogPost = await loadBlogPost(postSlug);
+
+  if (!blogPost) {
+    notFound();
+  }
+
   const {
-    content,
     frontmatter: { title, publishedOn },
-  } = await loadBlogPost(postSlug);
+    content,
+  } = loadBlogPost;
 
   return (
     <article className={styles.wrapper}>
